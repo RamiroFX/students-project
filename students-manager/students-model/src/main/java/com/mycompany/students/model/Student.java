@@ -11,6 +11,7 @@ package com.mycompany.students.model;
  */
 public class Student {
 
+    private int id;
     private String name;
     private String country;
     private int age;
@@ -19,11 +20,20 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String country, int age, int zipCode) {
+    public Student(int id, String name, String country, int age, int zipCode) {
+        this.id = id;
         this.name = name;
         this.country = country;
         this.age = age;
         this.zipCode = zipCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

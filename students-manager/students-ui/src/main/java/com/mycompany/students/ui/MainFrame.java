@@ -5,10 +5,15 @@
  */
 package com.mycompany.students.ui;
 
+import com.mycompany.students.model.Student;
+import com.mycompany.students.service.MainFrameService;
+import com.mycompany.students.serviceimpl.MainFrameServiceImpl;
 import com.mycompany.students.util.NumberConstants;
 import com.mycompany.students.util.StringConstants;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -21,10 +26,35 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends JFrame {
 
+    private MainFrameService mainFrameService;
+    private TablePanel tablePanel;
+    private StatusPanel statusPanel;
+
     public MainFrame() {
         super(StringConstants.APP_NAME);
         constructAppWindow();
         setJMenuBar(createFrameMenu());
+        initializeVariables();
+        constructLayout();
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        List<Student> studentList = this.mainFrameService.getAllStudents();
+        this.tablePanel.setTableModel(studentList);
+        this.tablePanel.updateTable();
+    }
+
+    private void constructLayout() {
+        setLayout(new BorderLayout());
+        add(this.tablePanel, BorderLayout.CENTER);
+        add(this.statusPanel, BorderLayout.SOUTH);
+    }
+
+    private void initializeVariables() {
+        this.mainFrameService = new MainFrameServiceImpl();
+        this.tablePanel = new TablePanel();
+        this.statusPanel = new StatusPanel();
     }
 
     private void constructAppWindow() {
