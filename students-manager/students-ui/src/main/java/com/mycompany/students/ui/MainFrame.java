@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
     private MainFrameService mainFrameService;
     private TablePanel tablePanel;
     private StatusPanel statusPanel;
+    private AddStudentForm addStudentForm;
 
     public MainFrame() {
         super(StringConstants.APP_NAME);
@@ -55,6 +56,7 @@ public class MainFrame extends JFrame {
         this.mainFrameService = new MainFrameServiceImpl();
         this.tablePanel = new TablePanel();
         this.statusPanel = new StatusPanel();
+        this.addStudentForm = new AddStudentForm(this);
     }
 
     private void constructAppWindow() {
@@ -79,6 +81,14 @@ public class MainFrame extends JFrame {
         JMenuItem removeItem = new JMenuItem(StringConstants.MAIN_MENU_REMOVE_STUDENT);
         windowMenu.add(addItem);
         windowMenu.add(removeItem);
+
+        addItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                addStudentForm.setVisible(true);
+            }
+        });
 
         exitMenuItem.addActionListener(new ActionListener() {
 

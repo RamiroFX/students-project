@@ -11,10 +11,13 @@ package com.mycompany.students.util;
  */
 public class NumberConstants {
 
-    private NumberConstants() {
-    }
-
     public static final int APP_WINDOWS_SIZE_WIDTH = 600;
     public static final int APP_WINDOWS_SIZE_HEIGHT = 800;
+    public static final int STUDENT_FORM_WINDOWS_SIZE_WIDTH = 400;
+    public static final int STUDENT_FORM_WINDOWS_SIZE_HEIGHT = 300;
+    public static final int ADD_STUDENT_FORM_TEXTFILED_LENGHT = 300;
+
+    private NumberConstants() {
+    }
 
 }

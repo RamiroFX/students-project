@@ -1,5 +1,7 @@
 package com.mycompany.students.util;
 
+import javax.swing.Icon;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -21,6 +23,14 @@ public class StringConstants {
     public static final String MAIN_MENU_EXIT_TEXT = "Do you really want to exit?";
     public static final String MAIN_MENU_EXIT_TITLE = "Confirm exit";
     public static final String STATUS_PANEL_TEXT = "@Ramiro 2017";
+    public static final String ADD_STUDENT_FORM_TITLE = "Add student form";
+    public static final String ADD_STUDENT_FORM_SUBTITLE = "Add new student";
+    public static final String ADD_STUDENT_FORM_SAVE = "Save";
+    public static final String ADD_STUDENT_FORM_CANCEL = "Cancel";
+    public static final String ADD_STUDENT_FORM_NAME = "Name";
+    public static final String ADD_STUDENT_FORM_AGE = "Age";
+    public static final String ADD_STUDENT_FORM_COUNTRY = "Country";
+    public static final String ADD_STUDENT_FORM_ZIPCODE = "Zip Code";
 
     private StringConstants() {
     }
