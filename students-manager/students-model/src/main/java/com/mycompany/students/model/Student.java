@@ -5,26 +5,40 @@
  */
 package com.mycompany.students.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Ramiro
  */
-public class Student {
+@Entity(name = "Student")
+@Table(name = "STUDENT")
+public class Student extends AbstractStudent {
 
+    @Id
+    @GeneratedValue
     private int id;
+    @Column(name = "name")
     private String name;
-    private String country;
+    @Column(name = "age")
     private int age;
-    private int zipCode;
 
     public Student() {
     }
 
-    public Student(int id, String name, String country, int age, int zipCode) {
-        this.id = id;
+    public Student(String name, int age) {
         this.name = name;
-        this.country = country;
         this.age = age;
+    }
+
+    public Student(String name, String country, int age, int zipCode) {
+        this.name = name;
+        this.age = age;
+        this.country = country;
         this.zipCode = zipCode;
     }
 
@@ -36,60 +50,25 @@ public class Student {
         this.id = id;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    /**
-     * @param country the country to set
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
-     * @return the age
-     */
     public int getAge() {
         return age;
     }
 
-    /**
-     * @param age the age to set
-     */
     public void setAge(int age) {
         this.age = age;
     }
 
-    /**
-     * @return the zipCode
-     */
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    /**
-     * @param zipCode the zipCode to set
-     */
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
+    @Override
+    public String toString() {
+        return getName() + " - " + getAge() + " - " + getCountry();
     }
 
 }

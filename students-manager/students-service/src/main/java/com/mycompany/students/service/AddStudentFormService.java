@@ -12,9 +12,7 @@ import java.util.List;
  *
  * @author Ramiro
  */
-public interface MainFrameService {
+public interface AddStudentFormService {
 
-    public List<Student> getAllStudents();
-
-    public void shutdown();
+    public void insertStudent(Student student);
 }

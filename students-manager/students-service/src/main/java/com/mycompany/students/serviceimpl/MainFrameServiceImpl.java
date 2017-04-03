@@ -5,7 +5,7 @@
  */
 package com.mycompany.students.serviceimpl;
 
-import com.mycompany.students.model.Database;
+import com.mycompany.students.query.MainFrameQuery;
 import com.mycompany.students.model.Student;
 import com.mycompany.students.service.MainFrameService;
 import java.util.List;
@@ -16,15 +16,20 @@ import java.util.List;
  */
 public class MainFrameServiceImpl implements MainFrameService {
 
-    Database database;
+    private MainFrameQuery mainFrameQuery;
 
     public MainFrameServiceImpl() {
-        this.database = new Database();
+        this.mainFrameQuery = new MainFrameQuery();
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return database.getStudentList();
+        return mainFrameQuery.getStudentList();
+    }
+
+    @Override
+    public void shutdown() {
+        this.mainFrameQuery.shutdown();
     }
 
 }

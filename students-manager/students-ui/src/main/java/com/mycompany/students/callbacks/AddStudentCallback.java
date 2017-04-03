@@ -3,18 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.students.service;
-
-import com.mycompany.students.model.Student;
-import java.util.List;
+package com.mycompany.students.callbacks;
 
 /**
  *
  * @author Ramiro
  */
-public interface MainFrameService {
+public interface AddStudentCallback {
 
-    public List<Student> getAllStudents();
-
-    public void shutdown();
+    public void studentSaved();
 }

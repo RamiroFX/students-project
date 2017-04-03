@@ -5,6 +5,10 @@
  */
 package com.mycompany.students.ui;
 
+import com.mycompany.students.callbacks.AddStudentCallback;
+import com.mycompany.students.model.Student;
+import com.mycompany.students.service.AddStudentFormService;
+import com.mycompany.students.serviceimpl.AddStudentFormServiceImpl;
 import com.mycompany.students.util.NumberConstants;
 import com.mycompany.students.util.StringConstants;
 import java.awt.BorderLayout;
@@ -13,6 +17,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,13 +27,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 
 /**
  *
  * @author Ramiro
  */
-public class AddStudentForm extends JDialog {
+public class AddStudentForm extends JDialog implements ActionListener {
 
     private JButton saveButton;
     private JButton cancelButton;
@@ -39,6 +44,8 @@ public class AddStudentForm extends JDialog {
     private JTextField ageField;
     private JTextField countryField;
     private JTextField zipCodeField;
+    private AddStudentFormService addStudentFormService;
+    private AddStudentCallback addStudentCallback;
 
     public AddStudentForm(JFrame parentFrame) {
         super(parentFrame, StringConstants.ADD_STUDENT_FORM_TITLE, false);
@@ -48,16 +55,24 @@ public class AddStudentForm extends JDialog {
     }
 
     private void initializeVariables() {
+        this.addStudentFormService = new AddStudentFormServiceImpl();
         this.saveButton = new JButton(StringConstants.ADD_STUDENT_FORM_SAVE);
         this.cancelButton = new JButton(StringConstants.ADD_STUDENT_FORM_CANCEL);
+        this.saveButton.addActionListener(this);
+        this.cancelButton.addActionListener(this);
         this.nameLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_NAME);
         this.ageLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_AGE);
         this.countryLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_COUNTRY);
         this.zipCodeLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_ZIPCODE);
+        Dimension textFieldsDim = new Dimension(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT, 10);
         this.nameField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
-        this.ageField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
-        this.countryField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
-        this.zipCodeField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
+        this.ageField = new JTextField();
+        this.countryField = new JTextField();
+        this.zipCodeField = new JTextField();
+        this.countryField.setPreferredSize(textFieldsDim);
+        this.zipCodeField.setPreferredSize(textFieldsDim);
+        this.nameField.setSize(textFieldsDim);
+        this.ageField.setPreferredSize(textFieldsDim);
     }
 
     private void constructLayout() {
@@ -163,5 +178,28 @@ public class AddStudentForm extends JDialog {
     private void setWindows(JFrame parentFrame) {
         setSize(NumberConstants.STUDENT_FORM_WINDOWS_SIZE_WIDTH, NumberConstants.STUDENT_FORM_WINDOWS_SIZE_HEIGHT);
         setLocationRelativeTo(parentFrame);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        Object source = ae.getSource();
+        if (source.equals(this.saveButton)) {
+            String name = nameField.getText();
+            String country = countryField.getText();
+            int age = Integer.valueOf(ageField.getText());
+            int zipCode = Integer.valueOf(zipCodeField.getText());
+            Student student = new Student(name, country, age, zipCode);
+
+            addStudentFormService.insertStudent(student);
+
+            setVisible(false);
+            addStudentCallback.studentSaved();
+        } else if (source.equals(this.cancelButton)) {
+
+        }
+    }
+
+    public void setCallback(AddStudentCallback addStudentCallback) {
+        this.addStudentCallback = addStudentCallback;
     }
 }

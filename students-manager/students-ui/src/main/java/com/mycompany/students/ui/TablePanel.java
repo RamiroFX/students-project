@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *

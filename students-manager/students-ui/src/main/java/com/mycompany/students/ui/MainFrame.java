@@ -5,6 +5,8 @@
  */
 package com.mycompany.students.ui;
 
+import com.mycompany.students.callbacks.AddStudentCallback;
+import com.mycompany.students.callbacks.RemoveStudentCallback;
 import com.mycompany.students.model.Student;
 import com.mycompany.students.service.MainFrameService;
 import com.mycompany.students.serviceimpl.MainFrameServiceImpl;
@@ -24,12 +26,13 @@ import javax.swing.JOptionPane;
  *
  * @author Ramiro
  */
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements AddStudentCallback, RemoveStudentCallback {
 
     private MainFrameService mainFrameService;
     private TablePanel tablePanel;
     private StatusPanel statusPanel;
     private AddStudentForm addStudentForm;
+    private RemoveStudentForm removeStudentForm;
 
     public MainFrame() {
         super(StringConstants.APP_NAME);
@@ -38,6 +41,7 @@ public class MainFrame extends JFrame {
         initializeVariables();
         constructLayout();
         refreshTable();
+        setCallback();
     }
 
     private void refreshTable() {
@@ -57,6 +61,7 @@ public class MainFrame extends JFrame {
         this.tablePanel = new TablePanel();
         this.statusPanel = new StatusPanel();
         this.addStudentForm = new AddStudentForm(this);
+        this.removeStudentForm = new RemoveStudentForm(this);
     }
 
     private void constructAppWindow() {
@@ -90,12 +95,21 @@ public class MainFrame extends JFrame {
             }
         });
 
+        removeItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                removeStudentForm.setVisible(true);
+            }
+        });
         exitMenuItem.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int action = JOptionPane.showConfirmDialog(MainFrame.this, StringConstants.MAIN_MENU_EXIT_TEXT, StringConstants.MAIN_MENU_EXIT_TITLE, JOptionPane.OK_CANCEL_OPTION);
                 if (action == JOptionPane.OK_OPTION) {
+                    mainFrameService.shutdown();
+                    statusPanel.stopTimer();
                     System.gc();
                     System.exit(0);
                 }
@@ -105,5 +119,22 @@ public class MainFrame extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(windowMenu);
         return menuBar;
+    }
+
+    @Override
+    public void studentSaved() {
+        refreshTable();
+        this.removeStudentForm.loadData();
+    }
+
+    private void setCallback() {
+        this.addStudentForm.setCallback(this);
+        this.removeStudentForm.setCallback(this);
+    }
+
+    @Override
+    public void studentRemoved() {
+        refreshTable();
+        this.removeStudentForm.loadData();
     }
 }
