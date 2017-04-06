@@ -64,15 +64,10 @@ public class AddStudentForm extends JDialog implements ActionListener {
         this.ageLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_AGE);
         this.countryLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_COUNTRY);
         this.zipCodeLabel = new JLabel(StringConstants.ADD_STUDENT_FORM_ZIPCODE);
-        Dimension textFieldsDim = new Dimension(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT, 10);
         this.nameField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
-        this.ageField = new JTextField();
-        this.countryField = new JTextField();
-        this.zipCodeField = new JTextField();
-        this.countryField.setPreferredSize(textFieldsDim);
-        this.zipCodeField.setPreferredSize(textFieldsDim);
-        this.nameField.setSize(textFieldsDim);
-        this.ageField.setPreferredSize(textFieldsDim);
+        this.ageField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
+        this.countryField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
+        this.zipCodeField = new JTextField(NumberConstants.ADD_STUDENT_FORM_TEXTFILED_LENGHT);
     }
 
     private void constructLayout() {
@@ -195,7 +190,7 @@ public class AddStudentForm extends JDialog implements ActionListener {
             setVisible(false);
             addStudentCallback.studentSaved();
         } else if (source.equals(this.cancelButton)) {
-
+            setVisible(false);
         }
     }
 
